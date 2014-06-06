@@ -18,12 +18,12 @@ import os
 #def simxegers(simxeger,nn):
 #	return([rstr.xeger(simxeger) for i in xrange(nn)])
 
-#def makeunique(func, funarg, nn):
-#	result = []
-#	while len(result) < nn:
-#		result.extend(func(funarg,nn))
-#		result = list(set(result))
-#   return(result[:nn])
+def makeunique(func, funarg, nn):
+	result = []
+	while len(result) < nn:
+		result.extend(func(funarg,nn))
+		result = list(set(result))
+	return(result[:nn])
 
 def readDDL(sqlfiles,con):
 	#Below is how you do type checking
