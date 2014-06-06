@@ -39,7 +39,7 @@ def simCol(simtype, nn, unique=False, values = [], simxeger = '', fracnull = 0):
 	return(result)
 
 
-=======
+
 def makeunique(func, funarg, nn):
 	result = []
 	while len(result) < nn:
