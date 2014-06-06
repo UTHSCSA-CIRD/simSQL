@@ -26,23 +26,23 @@ con.text_factory = str
 #		result = list(set(result))
 #   return(result[:nn])
 
-#def simCol(simtype, nn, unique=False, values = [], simxeger = '', fracnull = 0):
-#	if len(simxeger) > 0:
-#		if unique:
-#			result = makeunique(simxegers, simxeger, nn)
-#		else:
-#			result = simxegers(simxeger, nn)
-#	elif len(values) > 0:
-#		if unique:
-#			result = random.sample(values, nn)
-#		else:	
-#			result = sample_wr(values, nn)
-#	else:           
-#		if unique:
-#			result simfun = {'NUMBER': lambda ignore,nn: [random.randint(0,99999) for ii in xrange(nn)],'VARCHAR2': lambda ignore,nn: [rstr.postalsafe(10) for ii in xrange(nn)]}[simtype]= makeunique(simfun, 'ComeWorkAtCIRD', nn)
-#		else:
-#			result = simfun('ItsAwesomeHere',nn)
-#	return(result)
+def simCol(simtype, nn, unique=False, values = [], simxeger = '', fracnull = 0):
+	if len(simxeger) > 0:
+		if unique:
+			result = makeunique(simxegers, simxeger, nn)
+		else:
+			result = simxegers(simxeger, nn)
+	elif len(values) > 0:
+		if unique:
+			result = random.sample(values, nn)
+		else:	
+			result = sample_wr(values, nn)
+	else:           
+		if unique:
+			result = simfun{'NUMBER': lambda ignore,nn: [random.randint(0,99999) for ii in xrange(nn)],'VARCHAR2': lambda ignore,nn: [rstr.postalsafe(10) for ii in xrange(nn)]}[simtype]= makeunique(simfun, 'ComeWorkAtCIRD', nn)
+		else:
+			result = simfun('ItsAwesomeHere',nn)
+	return(result)
 
 
 
