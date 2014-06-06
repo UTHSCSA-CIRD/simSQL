@@ -20,23 +20,23 @@ import os
 
 
 
-def simCol(simtype, nn, unique=False, values = [], simxeger = '', fracnull = 0):
-	if len(simxeger) > 0:
-		if unique:
-			result = makeunique(simxegers, simxeger, nn)
-		else:
-			result = simxegers(simxeger, nn)
-	elif len(values) > 0:
-		if unique:
-			result = random.sample(values, nn)
-		else:	
-			result = sample_wr(values, nn)
-	else:           
-		if unique:
-			result = simfun{'NUMBER': lambda ignore,nn: [random.randint(0,99999) for ii in xrange(nn)],'VARCHAR2': lambda ignore,nn: [rstr.postalsafe(10) for ii in xrange(nn)]}[simtype]= makeunique(simfun, 'ComeWorkAtCIRD', nn)
-		else:
-			result = simfun('ItsAwesomeHere',nn)
-	return(result)
+# def simCol(simtype, nn, unique=False, values = [], simxeger = '', fracnull = 0):
+	# if len(simxeger) > 0:
+		# if unique:
+			# result = makeunique(simxegers, simxeger, nn)
+		# else:
+			# result = simxegers(simxeger, nn)
+	# elif len(values) > 0:
+		# if unique:
+			# result = random.sample(values, nn)
+		# else:	
+			# result = sample_wr(values, nn)
+	# else:           
+		# if unique:
+			# result = simfun{'NUMBER': lambda ignore,nn: [random.randint(0,99999) for ii in xrange(nn)],'VARCHAR2': lambda ignore,nn: [rstr.postalsafe(10) for ii in xrange(nn)]}[simtype]= makeunique(simfun, 'ComeWorkAtCIRD', nn)
+		# else:
+			# result = simfun('ItsAwesomeHere',nn)
+	# return(result)
 
 
 
@@ -81,8 +81,12 @@ def simDB(con):
 	cur=con.cursor()
 	cur.execute("SELECT name FROM sqlite_master WHERE type='table'")
 	done = [] # list of tables that have been created
+	print 'Done:'
+	print done
 	for row in cur.fetchall():
 		simTable(row[0],con,done,10)
+	print 'Done final:'
+	print done
 
 
 def simTable(tableName,con,done,nn):
@@ -115,6 +119,7 @@ def simTable(tableName,con,done,nn):
 		else: tabletemp[row[1]] = simfun('',nn)
 		print row
 	print tabletemp
+	import pdb; pdb.set_trace() # invoke debugger
 	'''If we got this far successfully, add this table to
 	the done list so it doesn't get done again.'''
 	done.append(tableName) 
