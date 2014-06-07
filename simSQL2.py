@@ -86,11 +86,12 @@ def simTable(tableName,con,done,nn):
 		'''Now, set simfun to the appropriate 
 		function'''
 		simfun = {'int': lambda ignore,nn: [random.randint(0,99999) for ii in xrange(nn)],
-			  'varchar': lambda ignore,nn: [rstr.postalsafe(10) for ii in xrange(nn)]}[ctype]
+			  'varchar': lambda ignore,nn: ['"'+rstr.postalsafe(10)+'"' for ii in xrange(nn)]}[ctype]
 		'''Then, find out if it needs to be unique'''
 		if row[5] == 1: tabletemp[row[1]] = makeunique(simfun,'',nn)
 		else: tabletemp[row[1]] = simfun('',nn)
 		print row
+	import pdb; pdb.set_trace() # invoke debugger
 	print tabletemp
 	'''If we got this far successfully, add this table to
 	the done list so it doesn't get done again.'''
@@ -119,7 +120,7 @@ def simTable(tableName,con,done,nn):
 if __name__ == "__main__":
 	con = lite.connect(":memory:")
 	con.text_factory = str
-	readDDL(['test.sql'],con)
+	readDDL(['crc_test.sql'],con)
 	done = []
 	import pdb; pdb.set_trace() # invoke debugger
 	simDB(con)
