@@ -134,7 +134,7 @@ def simTable(tableName,con,done,nn):
 	for row_name, cols in tabletemp.items():
 
     # Compile the data we have for this row.
-    col_names = cols.keys()
+    #col_names = cols.keys()
     col_values = [str(val) for val in cols.values()]
 
     # Insert it.
