@@ -118,8 +118,35 @@ def simTable(tableName,con,done,nn):
 		if row[5] == 1: tabletemp[row[1]] = makeunique(simfun,'',nn)
 		else: tabletemp[row[1]] = simfun('',nn)
 		print row
+	'''here is to find the unique names'''
+	columns = set()
+	for cols in tabletemp.values():
+		for key in cols:
+			columns.add(key)	
+	col_defs = [
+    '"row_name" VARCHAR(2) NOT NULL PRIMARY KEY'
+    ]
+	for column in columns:
+		col_defs.append('"%s" REAL NULL' % column)
+	schema = "CREATE TABLE simple (%s);" % ",".join(col_defs)
+	cur.execute(schema)
+	
+	for row_name, cols in tabletemp.items():
+
+    # Compile the data we have for this row.
+    col_names = cols.keys()
+    col_values = [str(val) for val in cols.values()]
+
+    # Insert it.
+    sql = 'INSERT INTO simple ("row_name", "%s") VALUES ("%s", "%s");' % (
+        '","'.join(col_names),
+        row_name,
+        '","'.join(col_values)
+        )
+    cur.execute(sql)
+	
 	print tabletemp
-	import pdb; pdb.set_trace() # invoke debugger
+	#import pdb; pdb.set_trace() # invoke debugger
 	'''If we got this far successfully, add this table to
 	the done list so it doesn't get done again.'''
 	done.append(tableName) 
@@ -133,7 +160,7 @@ if __name__ == "__main__":
 	con.text_factory = str
 	readDDL(['test.sql'],con)
 	done = []
-	import pdb; pdb.set_trace() # invoke debugger
+	#import pdb; pdb.set_trace() # invoke debugger
 	simDB(con)
 	#printtables(readDDL)
 	#print globals() 			
